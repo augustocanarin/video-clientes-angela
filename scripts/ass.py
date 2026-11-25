@@ -43,10 +43,13 @@ for i,c in enumerate(chunks):
 def rect(x0,y0,x1,y1): return f"m {x0} {y0} l {x1} {y0} l {x1} {y1} l {x0} {y1}"
 for o in ovs:
     k,a,b=o[0],o[1],o[2]
+    if k in ('title','chapter','env','card','end'):
+        fo_=0 if k=='end' else 400
+        ev.append(('Dim',a,b,'{\\fad(%d,%d)\\1a&HA6&\\p1}m 0 0 l 1080 0 l 1080 1920 l 0 1920{\\p0}'%(400,fo_)))
     if k=='title':
         ev.append(('Title',a,b,'{\\fad(600,500)\\pos(540,900)}'+o[3]))
         ev.append(('Kicker',a+0.4,b,'{\\fad(500,500)\\pos(540,1030)\\fs28\\fsp6}'+o[4].upper()))
-    elif k=='chapter':
+    if k=='chapter':
         y=o[5] if len(o)>5 else 880
         ev.append(('Kicker',a,b,'{\\fad(300,300)\\pos(540,%d)}'%y+o[3].upper()))
         ev.append(('Chapter',a,b,'{\\fad(400,300)\\pos(540,%d)}'%(y+85)+o[4]))
@@ -59,21 +62,21 @@ for o in ovs:
         ev.append(('Chip',a,b,'{\\fad(200,200)\\an7\\pos(56,70)}PROJETO · IA'))
         ev.append(('Chip',a,b,'{\\fad(200,200)\\an7\\pos(56,1030)}REALIDADE'))
     elif k=='partner':
-        ev.append(('PName',a,b,'{\\fad(300,300)\\move(110,1420,86,1420,0,300)}'+o[3]))
-        ev.append(('PSub',a,b,'{\\fad(300,300)\\move(110,1480,86,1480,0,300)}'+o[4]))
+        ev.append(('PName',a,b,'{\\fad(300,300)\\move(100,1410,76,1410,0,300)}'+o[3]))
+        ev.append(('PSub',a,b,'{\\fad(300,300)\\move(100,1500,76,1500,0,300)}'+o[4]))
     elif k=='note':
         ev.append(('Note',a,b,'{\\fad(300,300)\\pos(540,1180)}'+o[3]))
     elif k=='card':
-        y=1290
+        y=330
         for j,l in enumerate([x for x in o[3] if x]):
             ev.append(('Card',a+0.35*j,b,'{\\fad(500,400)\\pos(540,%d)}%s'%(y+j*92,l)))
     elif k=='end':
         ev.append(('Title',a,b,'{\\fad(600,0)\\pos(540,760)\\fs72}Angelinne Manualidades'))
         ev.append(('Kicker',a+0.4,b,'{\\fad(500,0)\\pos(540,900)}AGRADECIMENTOS'))
-        ev.append(('PName',a+0.6,b,'{\\fad(500,0)\\an5\\pos(540,975)\\fs40}MODELART'))
-        ev.append(('PSub',a+0.6,b,'{\\fad(500,0)\\an5\\pos(540,1025)}corte a laser em papelão'))
-        ev.append(('PName',a+0.9,b,'{\\fad(500,0)\\an5\\pos(540,1110)\\fs40}STEIGLEDER TÊXTIL'))
-        ev.append(('PSub',a+0.9,b,'{\\fad(500,0)\\an5\\pos(540,1160)}Decortela'))
+        ev.append(('CreditName',a+0.6,b,'{\\fad(500,0)\\pos(540,975)}MODELART'))
+        ev.append(('CreditSub',a+0.6,b,'{\\fad(500,0)\\pos(540,1025)}corte a laser em papelão'))
+        ev.append(('CreditName',a+0.9,b,'{\\fad(500,0)\\pos(540,1110)}STEIGLEDER TÊXTIL'))
+        ev.append(('CreditSub',a+0.9,b,'{\\fad(500,0)\\pos(540,1160)}Decortela'))
         ev.append(('Kicker',a+1.2,b,'{\\fad(500,0)\\pos(540,1290)\\c&HFFFFFF&}IGREJA NAÇÕES'))
 hdr="""[Script Info]
 ScriptType: v4.00+
@@ -84,23 +87,26 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Cap,Inter SemiBold,66,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,0,0,0,0,100,100,0,0,1,0,3,2,70,70,560,1
-Style: Title,Inter ExtraBold,84,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,0,0,0,0,100,100,0,0,1,0,4,5,50,50,0,1
-Style: Chapter,Inter ExtraBold,76,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,0,0,0,0,100,100,0,0,1,0,4,5,50,50,0,1
-Style: Kicker,Inter SemiBold,36,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,0,0,0,0,100,100,8,0,1,0,3,5,40,40,0,1
-Style: Env,Inter ExtraBold,68,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,0,0,0,0,100,100,0,0,1,0,4,5,40,40,0,1
-Style: Chip,Inter SemiBold,28,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,0,0,0,0,100,100,6,0,1,0,3,7,0,0,0,1
-Style: PName,Inter ExtraBold,50,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,0,0,0,0,100,100,4,0,1,0,3,7,0,0,0,1
-Style: PSub,Inter Medium,40,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,0,0,0,0,100,100,0,0,1,0,3,7,0,0,0,1
-Style: Note,Inter SemiBold,54,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,0,0,0,0,100,100,0,0,1,0,3,5,40,40,0,1
-Style: Card,Inter SemiBold,64,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,0,0,0,0,100,100,0,0,1,0,4,5,50,50,0,1
+Style: Cap,Inter SemiBold,66,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,4,0,2,70,70,560,1
+Style: Dim,Inter,20,&H00000000,&H00000000,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,7,0,0,0,1
+Style: Title,Inter ExtraBold,84,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,5,50,50,0,1
+Style: Chapter,Inter ExtraBold,76,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,5,50,50,0,1
+Style: Kicker,Inter SemiBold,36,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,0,0,0,0,100,100,8,0,1,0,0,5,40,40,0,1
+Style: Env,Inter ExtraBold,68,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,5,40,40,0,1
+Style: Card,Inter SemiBold,64,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,5,50,50,0,1
+Style: Chip,Inter Bold,28,&H00000000,&H00000000,&H00FFFFFF,&H00FFFFFF,0,0,0,0,100,100,5,0,3,12,0,7,0,0,0,1
+Style: PName,Inter ExtraBold,46,&H00000000,&H00000000,&H00FFFFFF,&H00FFFFFF,0,0,0,0,100,100,3,0,3,16,0,7,0,0,0,1
+Style: PSub,Inter Medium,36,&H00000000,&H00000000,&H00FFFFFF,&H00FFFFFF,0,0,0,0,100,100,0,0,3,16,0,7,0,0,0,1
+Style: Note,Inter SemiBold,44,&H00000000,&H00000000,&H00FFFFFF,&H00FFFFFF,0,0,0,0,100,100,0,0,3,16,0,5,40,40,0,1
+Style: CreditName,Inter ExtraBold,40,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,0,0,0,0,100,100,4,0,1,0,0,5,0,0,0,1
+Style: CreditSub,Inter Medium,36,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,5,0,0,0,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 """
-order={'Box':0}
+order={'Dim':0}
 with open(WK+'/overlay.ass','w') as f:
     f.write(hdr)
     for st,a,b,txt in sorted(ev,key=lambda e:e[1]):
-        f.write(f"Dialogue: {order.get(st,1)},{ts(a)},{ts(b)},{st},,0,0,0,,{{\\bord6\\blur9\\3c&H000000&\\3a&H78&\\4a&H50&}}{txt}\n")
+        f.write(f"Dialogue: {order.get(st,1)},{ts(a)},{ts(b)},{st},,0,0,0,,{txt}\n")
 print('events',len(ev),'captions',len(chunks),'total',T/FPS)
