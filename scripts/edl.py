@@ -38,7 +38,7 @@ SEGS=[
  img('ia_corredor',1.35,'panlr',ov=[('chip',0,1.35,'PROJETO · IA')]),
  img('ia_globo',1.4,'zin',fo=0.3,ov=[('chip',0,1.4,'PROJETO · IA')]),
  # ---------- CAP 2: NICHO DAS ÁRVORES ----------
- img('ia_arvores',2.6,'zin',fi=0.3,ov=[('chapter',0.0,2.6,'Capítulo 2','Os ambientes'),('chip',0,2.6,'PROJETO · IA')]),
+ img('ia_arvores',2.6,'zin',fi=0.3,ov=[('chapter',0.0,2.6,'Capítulo 2','Os ambientes',1380),('chip',0,2.6,'PROJETO · IA')]),
  talk('i31',21.1,62.6,cuts=[(20.0,25.8,('img','feliz_natal','zin'))],
       ov=[('env',0.0,3.5,'Nicho das Árvores'),('partner',7.2,13.0,'MODELART','Corte a laser')]),
  # ---------- RECEPÇÃO ----------
